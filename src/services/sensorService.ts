@@ -11,6 +11,14 @@ export interface SensorData {
   timestamp: string;
 }
 
+export interface GasData {
+  co: number;        // Carbon Monoxide (ppm)
+  co2: number;       // Carbon Dioxide (ppm)
+  nh3: number;       // Ammonia (ppm)
+  h2s: number;       // Hydrogen Sulfide (ppm)
+  timestamp: string;
+}
+
 export interface Equipment {
   id: string;
   name: string;
@@ -29,6 +37,7 @@ export interface Alert {
 
 class SensorService {
   private sensorDataRef = ref(database, 'sensorData');
+  private gasDataRef = ref(database, 'gasData');
   private equipmentRef = ref(database, 'equipment');
   private alertsRef = ref(database, 'alerts');
 
@@ -60,6 +69,18 @@ class SensorService {
     return () => off(this.equipmentRef, 'value', unsubscribe);
   }
 
+  // Subscribe to real-time gas data updates
+  subscribeGasData(callback: (data: GasData) => void): () => void {
+    const unsubscribe = onValue(this.gasDataRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        callback(data);
+      }
+    });
+
+    return () => off(this.gasDataRef, 'value', unsubscribe);
+  }
+
   // Subscribe to real-time alerts
   subscribeAlerts(callback: (alerts: Alert[]) => void): () => void {
     const unsubscribe = onValue(this.alertsRef, (snapshot) => {
@@ -85,6 +106,15 @@ class SensorService {
       timestamp: new Date().toISOString()
     };
     await set(this.sensorDataRef, updates);
+  }
+
+  // Update gas data
+  async updateGasData(data: Partial<GasData>): Promise<void> {
+    const updates = {
+      ...data,
+      timestamp: new Date().toISOString()
+    };
+    await set(this.gasDataRef, updates);
   }
 
   // Control equipment
@@ -160,6 +190,15 @@ class SensorService {
       timestamp: new Date().toISOString()
     };
 
+    // Initialize gas data
+    const defaultGasData: GasData = {
+      co: 2.5,    // Normal CO level (ppm)
+      co2: 450,   // Normal CO2 level (ppm)
+      nh3: 8.0,   // Normal NH3 level (ppm)
+      h2s: 0.5,   // Normal H2S level (ppm)
+      timestamp: new Date().toISOString()
+    };
+
     // Initialize equipment
     const defaultEquipment = {
       'ventilation-zone-a': {
@@ -206,6 +245,7 @@ class SensorService {
 
     // Set default data
     await set(this.sensorDataRef, defaultSensorData);
+    await set(this.gasDataRef, defaultGasData);
     await set(this.equipmentRef, defaultEquipment);
     await set(this.alertsRef, defaultAlerts);
   }
@@ -223,7 +263,17 @@ class SensorService {
         timestamp: currentTime
       };
 
+      // Update gas data with realistic variations
+      const gasUpdates = {
+        co: Math.max(0, 2.5 + (Math.random() - 0.5) * 1.5),     // 1-4 ppm range
+        co2: Math.max(300, 450 + (Math.random() - 0.5) * 100),  // 350-550 ppm range
+        nh3: Math.max(0, 8.0 + (Math.random() - 0.5) * 4),      // 4-12 ppm range
+        h2s: Math.max(0, 0.5 + (Math.random() - 0.5) * 0.8),    // 0.1-0.9 ppm range
+        timestamp: currentTime
+      };
+
       await this.updateSensorData(updates);
+      await this.updateGasData(gasUpdates);
 
       // Generate random alerts occasionally
       if (Math.random() < 0.1) { // 10% chance

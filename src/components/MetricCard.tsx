@@ -88,24 +88,28 @@ const MetricCard: React.FC<MetricCardProps> = ({
   };
 
   return (
-    <div className={`bg-white rounded-xl shadow-sm border-2 ${statusClasses[status]} p-6 transition-all duration-200 hover:shadow-md`}>
-      <div className="flex items-center justify-between mb-4">
-        <div className={`p-3 ${colorClasses[color].light} rounded-lg`}>
+    <div className={`bg-white rounded-lg sm:rounded-xl shadow-sm border-2 ${statusClasses[status]} p-3 sm:p-6 transition-all duration-200 hover:shadow-md`}>
+      <div className="flex items-center justify-between mb-2 sm:mb-4">
+        <div className={`p-2 sm:p-3 ${colorClasses[color].light} rounded-lg`}>
           <div className={colorClasses[color].text}>
-            {icon}
+            <div className="w-4 h-4 sm:w-6 sm:h-6">
+              {icon}
+            </div>
           </div>
         </div>
-        <div className="flex items-center space-x-2">
-          {getTrendIcon()}
+        <div className="flex items-center space-x-1 sm:space-x-2">
+          <div className="w-3 h-3 sm:w-4 sm:h-4">
+            {getTrendIcon()}
+          </div>
           {getStatusDot()}
         </div>
       </div>
       
-      <div className="space-y-1">
-        <h3 className="text-sm font-medium text-gray-600">{title}</h3>
-        <p className="text-2xl font-bold text-gray-900">{value}</p>
+      <div className="space-y-0.5 sm:space-y-1">
+        <h3 className="text-xs sm:text-sm font-medium text-gray-600 leading-tight">{title}</h3>
+        <p className="text-lg sm:text-2xl font-bold text-gray-900 leading-tight">{value}</p>
         {subtitle && (
-          <p className="text-xs text-gray-500">{subtitle}</p>
+          <p className="text-xs text-gray-500 leading-tight">{subtitle}</p>
         )}
       </div>
     </div>

@@ -186,14 +186,6 @@ const ControlPanel: React.FC = () => {
                 Mode Nuit
               </button>
             </div>
-            <div className="flex space-x-2">
-              <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                Planifier
-              </button>
-              <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                Historique
-              </button>
-            </div>
           </div>
         </div>
       </div>
