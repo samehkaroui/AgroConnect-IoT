@@ -20,6 +20,7 @@ import ChartWidget from './ChartWidget';
 import ControlPanel from './ControlPanel';
 import GasTable from './GasTable';
 import SettingsModal from './SettingsModal';
+import ThemeToggle from './ThemeToggle';
 import { sensorService, SensorData, GasData, Alert } from '../services/sensorService';
 
 interface AlertThresholds {
@@ -148,9 +149,9 @@ const Dashboard: React.FC = () => {
   const chartData = generateChartData();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-200">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 sm:space-x-3">
@@ -158,21 +159,22 @@ const Dashboard: React.FC = () => {
                 <Activity className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
               <div>
-                <h1 className="text-lg sm:text-2xl font-bold text-gray-900">AgroConnect IoT</h1>
-                <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">Élevage de Volailles Connecté</p>
+                <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-200">AgroConnect IoT</h1>
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 hidden sm:block transition-colors duration-200">Élevage de Volailles Connecté</p>
               </div>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <div className="text-xs sm:text-sm text-gray-600 hidden md:block">
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 hidden md:block transition-colors duration-200">
                 <div className="flex items-center space-x-2">
                   <RefreshCw className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="hidden lg:inline">Dernière mise à jour: </span>
                   <span>{lastUpdate.toLocaleTimeString('fr-FR')}</span>
                 </div>
               </div>
+              <ThemeToggle />
               <button 
                 onClick={() => setIsSettingsOpen(true)}
-                className="p-1.5 sm:p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
                 title="Configuration des alertes et notifications"
               >
                 <Settings className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -243,7 +245,7 @@ const Dashboard: React.FC = () => {
 
         {/* Métriques des gaz */}
         <div className="mb-6 sm:mb-8">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 px-1">Qualité de l'air - Gaz</h2>
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 px-1 transition-colors duration-200">Qualité de l'air - Gaz</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             <MetricCard
               title="Monoxyde de carbone (CO)"

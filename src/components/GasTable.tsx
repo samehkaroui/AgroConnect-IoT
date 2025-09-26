@@ -63,16 +63,16 @@ const GasTable: React.FC<GasTableProps> = ({ gasData, thresholds }) => {
 
   const getStatusColor = (value: number, limit: number) => {
     const percentage = (value / limit) * 100;
-    if (percentage <= 50) return 'text-green-600 bg-green-50';
-    if (percentage <= 80) return 'text-yellow-600 bg-yellow-50';
-    return 'text-red-600 bg-red-50';
+    if (percentage <= 50) return 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/30';
+    if (percentage <= 80) return 'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/30';
+    return 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30';
   };
 
   const getStatusIcon = (value: number, limit: number) => {
     const percentage = (value / limit) * 100;
-    if (percentage <= 50) return <CheckCircle className="h-4 w-4 text-green-600" />;
-    if (percentage <= 80) return <Clock className="h-4 w-4 text-yellow-600" />;
-    return <AlertTriangle className="h-4 w-4 text-red-600" />;
+    if (percentage <= 50) return <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />;
+    if (percentage <= 80) return <Clock className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />;
+    return <AlertTriangle className="h-4 w-4 text-red-600 dark:text-red-400" />;
   };
 
   const getStatusText = (value: number, limit: number) => {
@@ -94,14 +94,14 @@ const GasTable: React.FC<GasTableProps> = ({ gasData, thresholds }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      <div className="px-3 sm:px-6 py-3 sm:py-4 border-b border-gray-200 bg-gray-50">
+    <div className="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors duration-200">
+      <div className="px-3 sm:px-6 py-3 sm:py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 transition-colors duration-200">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
           <div>
-            <h3 className="text-base sm:text-lg font-semibold text-gray-900">Surveillance des Gaz</h3>
-            <p className="text-xs sm:text-sm text-gray-600 mt-1">Monitoring en temps réel de la qualité de l'air</p>
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white transition-colors duration-200">Surveillance des Gaz</h3>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-200">Monitoring en temps réel de la qualité de l'air</p>
           </div>
-          <div className="text-xs text-gray-500">
+          <div className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-200">
             Dernière mise à jour: {formatTimestamp(gasData.timestamp)}
           </div>
         </div>
@@ -112,38 +112,38 @@ const GasTable: React.FC<GasTableProps> = ({ gasData, thresholds }) => {
         {gasInfo.map((gas, index) => {
           const percentage = (gas.value / gas.limit) * 100;
           return (
-            <div key={index} className="p-4 border-b border-gray-200 last:border-b-0">
+            <div key={index} className="p-4 border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-colors duration-200">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-3">
-                  <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-                    <span className="text-xs font-bold text-blue-600">{gas.symbol}</span>
+                  <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center transition-colors duration-200">
+                    <span className="text-xs font-bold text-blue-600 dark:text-blue-400 transition-colors duration-200">{gas.symbol}</span>
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-gray-900">{gas.name}</div>
-                    <div className="text-xs text-gray-500">{gas.description}</div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-white transition-colors duration-200">{gas.name}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-200">{gas.description}</div>
                   </div>
                 </div>
-                <div className={`inline-flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(gas.value, gas.limit)}`}>
+                <div className={`inline-flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium transition-colors duration-200 ${getStatusColor(gas.value, gas.limit)}`}>
                   {getStatusIcon(gas.value, gas.limit)}
                   <span>{getStatusText(gas.value, gas.limit)}</span>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <div className="text-xs text-gray-500">Valeur</div>
-                  <div className="font-bold text-gray-900">{gas.value.toFixed(1)} {gas.unit}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-200">Valeur</div>
+                  <div className="font-bold text-gray-900 dark:text-white transition-colors duration-200">{gas.value.toFixed(1)} {gas.unit}</div>
                 </div>
                 <div>
-                  <div className="text-xs text-gray-500">Limite</div>
-                  <div className="text-gray-900">{gas.limit} {gas.unit}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-200">Limite</div>
+                  <div className="text-gray-900 dark:text-white transition-colors duration-200">{gas.limit} {gas.unit}</div>
                 </div>
               </div>
               <div className="mt-3">
-                <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
+                <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-300 mb-1 transition-colors duration-200">
                   <span>Pourcentage</span>
                   <span>{percentage.toFixed(1)}%</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 transition-colors duration-200">
                   <div
                     className={`h-2 rounded-full transition-all duration-300 ${
                       percentage <= 50 ? 'bg-green-500' :
@@ -153,7 +153,7 @@ const GasTable: React.FC<GasTableProps> = ({ gasData, thresholds }) => {
                   ></div>
                 </div>
               </div>
-              <div className="mt-2 text-xs text-gray-500">{gas.danger}</div>
+              <div className="mt-2 text-xs text-gray-500 dark:text-gray-400 transition-colors duration-200">{gas.danger}</div>
             </div>
           );
         })}
@@ -161,66 +161,66 @@ const GasTable: React.FC<GasTableProps> = ({ gasData, thresholds }) => {
       
       {/* Desktop View */}
       <div className="hidden sm:block overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead className="bg-gray-50 dark:bg-gray-700 transition-colors duration-200">
             <tr>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider transition-colors duration-200">
                 Gaz
               </th>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider transition-colors duration-200">
                 Valeur Actuelle
               </th>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider transition-colors duration-200">
                 Limite Sécurité
               </th>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider transition-colors duration-200">
                 Statut
               </th>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider transition-colors duration-200">
                 Pourcentage
               </th>
-              <th className="hidden lg:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="hidden lg:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider transition-colors duration-200">
                 Description
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 transition-colors duration-200">
             {gasInfo.map((gas, index) => {
               const percentage = (gas.value / gas.limit) * 100;
               return (
-                <tr key={index} className="hover:bg-gray-50 transition-colors">
+                <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
                   <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-8 w-8 sm:h-10 sm:w-10">
-                        <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                          <span className="text-xs sm:text-sm font-bold text-blue-600">{gas.symbol}</span>
+                        <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center transition-colors duration-200">
+                          <span className="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400 transition-colors duration-200">{gas.symbol}</span>
                         </div>
                       </div>
                       <div className="ml-3 sm:ml-4">
-                        <div className="text-xs sm:text-sm font-medium text-gray-900">{gas.name}</div>
-                        <div className="text-xs text-gray-500 sm:hidden">{gas.symbol}</div>
+                        <div className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white transition-colors duration-200">{gas.name}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 sm:hidden transition-colors duration-200">{gas.symbol}</div>
                       </div>
                     </div>
                   </td>
                   <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
-                    <div className="text-xs sm:text-sm font-bold text-gray-900">
+                    <div className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white transition-colors duration-200">
                       {gas.value.toFixed(1)} {gas.unit}
                     </div>
                   </td>
                   <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
-                    <div className="text-xs sm:text-sm text-gray-900">
+                    <div className="text-xs sm:text-sm text-gray-900 dark:text-white transition-colors duration-200">
                       {gas.limit} {gas.unit}
                     </div>
                   </td>
                   <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
-                    <div className={`inline-flex items-center space-x-1 sm:space-x-2 px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(gas.value, gas.limit)}`}>
+                    <div className={`inline-flex items-center space-x-1 sm:space-x-2 px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium transition-colors duration-200 ${getStatusColor(gas.value, gas.limit)}`}>
                       {getStatusIcon(gas.value, gas.limit)}
                       <span className="hidden sm:inline">{getStatusText(gas.value, gas.limit)}</span>
                     </div>
                   </td>
                   <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="w-12 sm:w-16 bg-gray-200 rounded-full h-2 mr-2">
+                      <div className="w-12 sm:w-16 bg-gray-200 dark:bg-gray-600 rounded-full h-2 mr-2 transition-colors duration-200">
                         <div
                           className={`h-2 rounded-full transition-all duration-300 ${
                             percentage <= 50 ? 'bg-green-500' :
@@ -229,12 +229,12 @@ const GasTable: React.FC<GasTableProps> = ({ gasData, thresholds }) => {
                           style={{ width: `${Math.min(percentage, 100)}%` }}
                         ></div>
                       </div>
-                      <span className="text-xs sm:text-sm text-gray-600">{percentage.toFixed(1)}%</span>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">{percentage.toFixed(1)}%</span>
                     </div>
                   </td>
                   <td className="hidden lg:table-cell px-3 sm:px-6 py-4">
-                    <div className="text-sm text-gray-900">{gas.description}</div>
-                    <div className="text-xs text-gray-500 mt-1">{gas.danger}</div>
+                    <div className="text-sm text-gray-900 dark:text-white transition-colors duration-200">{gas.description}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors duration-200">{gas.danger}</div>
                   </td>
                 </tr>
               );
@@ -244,23 +244,23 @@ const GasTable: React.FC<GasTableProps> = ({ gasData, thresholds }) => {
       </div>
       
       {/* Légende */}
-      <div className="px-3 sm:px-6 py-3 sm:py-4 bg-gray-50 border-t border-gray-200">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0 text-xs text-gray-600">
+      <div className="px-3 sm:px-6 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-700 transition-colors duration-200">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0 text-xs text-gray-600 dark:text-gray-300 transition-colors duration-200">
           <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             <div className="flex items-center space-x-1">
-              <CheckCircle className="h-3 w-3 text-green-600" />
+              <CheckCircle className="h-3 w-3 text-green-600 dark:text-green-400" />
               <span>Normal (≤ 50%)</span>
             </div>
             <div className="flex items-center space-x-1">
-              <Clock className="h-3 w-3 text-yellow-600" />
+              <Clock className="h-3 w-3 text-yellow-600 dark:text-yellow-400" />
               <span>Attention (51-80%)</span>
             </div>
             <div className="flex items-center space-x-1">
-              <AlertTriangle className="h-3 w-3 text-red-600" />
+              <AlertTriangle className="h-3 w-3 text-red-600 dark:text-red-400" />
               <span>Critique (&gt;80%)</span>
             </div>
           </div>
-          <div className="text-gray-500 text-center sm:text-right">
+          <div className="text-gray-500 dark:text-gray-400 text-center sm:text-right transition-colors duration-200">
             Mise à jour automatique toutes les 5 secondes
           </div>
         </div>

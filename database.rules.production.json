@@ -1,0 +1,28 @@
+{
+  "rules": {
+    "sensorData": {
+      ".read": true,
+      ".write": true,
+      ".validate": "newData.hasChildren(['temperature', 'humidity', 'airQuality', 'lightLevel', 'birdCount', 'activityLevel', 'timestamp'])"
+    },
+    "gasData": {
+      ".read": true,
+      ".write": true,
+      ".validate": "newData.hasChildren(['co', 'co2', 'nh3', 'h2s', 'timestamp'])"
+    },
+    "equipment": {
+      ".read": true,
+      ".write": true,
+      "$equipmentId": {
+        ".validate": "newData.hasChildren(['name', 'type', 'status', 'power'])"
+      }
+    },
+    "alerts": {
+      ".read": true,
+      ".write": true,
+      "$alertId": {
+        ".validate": "newData.hasChildren(['type', 'message', 'timestamp', 'building'])"
+      }
+    }
+  }
+}
