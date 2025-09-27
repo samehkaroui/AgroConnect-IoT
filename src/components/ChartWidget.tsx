@@ -73,13 +73,13 @@ const ChartWidget: React.FC<ChartWidgetProps> = () => {
   const maxActivity = Math.max(...currentData.map(d => d.activity)) + 10;
 
   const normalizeValue = (value: number, min: number, max: number) => {
-    return ((value - min) / (max - min)) * 90 + 5; // Use 90% of height with 5% padding for better visibility
+    return ((value - min) / (max - min)) * 70 + 5; // Use 70% of height with 5% padding for better visibility
   };
 
   const getPath = (values: number[], min: number, max: number) => {
     const points = values.map((value, index) => {
       const x = (index / (values.length - 1)) * 98 + 1; // Use 98% of width with minimal padding for full display
-      const y = 100 - normalizeValue(value, min, max);
+      const y = 80 - normalizeValue(value, min, max);
       return `${x},${y}`;
     });
     return `M ${points.join(' L ')}`;
@@ -175,16 +175,16 @@ const ChartWidget: React.FC<ChartWidgetProps> = () => {
         {/* Graphique moderne minimaliste - Pleine largeur et visibilité optimale */}
         <div className="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-1 transition-colors duration-200">
           <svg 
-            viewBox="0 0 100 60" 
-            className="w-full h-96 bg-gradient-to-b from-white dark:from-gray-800 to-gray-50/20 dark:to-gray-700/20 rounded-md transition-colors duration-200"
+            viewBox="0 0 100 80" 
+            className="w-full h-[500px] bg-gradient-to-b from-white dark:from-gray-800 to-gray-50/20 dark:to-gray-700/20 rounded-md transition-colors duration-200"
           >
             {/* Grille ultra-fine pour meilleure visibilité */}
             <defs>
               <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
                 <path d="M 5 0 L 0 0 0 5" fill="none" stroke="#f9fafb" strokeWidth="0.3" className="dark:stroke-gray-700"/>
               </pattern>
-              <pattern id="majorGrid" width="20" height="12" patternUnits="userSpaceOnUse">
-                <path d="M 20 0 L 0 0 0 12" fill="none" stroke="#f3f4f6" strokeWidth="0.5" className="dark:stroke-gray-600"/>
+              <pattern id="majorGrid" width="20" height="16" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 16" fill="none" stroke="#f3f4f6" strokeWidth="0.5" className="dark:stroke-gray-600"/>
               </pattern>
               {/* Gradients optimisés pour lignes fines et claires */}
               <linearGradient id="tempGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -202,8 +202,8 @@ const ChartWidget: React.FC<ChartWidgetProps> = () => {
             </defs>
             
             {/* Grilles ultra-subtiles */}
-            <rect width="100" height="60" fill="url(#grid)" />
-            <rect width="100" height="60" fill="url(#majorGrid)" />
+            <rect width="100" height="80" fill="url(#grid)" />
+            <rect width="100" height="80" fill="url(#majorGrid)" />
             
             {/* Lignes de données ultra-fines et claires */}
             <path
@@ -248,7 +248,7 @@ const ChartWidget: React.FC<ChartWidgetProps> = () => {
                   {/* Points température - ultra-fins et clairs */}
                   <circle
                     cx={x}
-                    cy={100 - normalizeValue(currentData[index].temperature, minTemp, maxTemp)}
+                    cy={80 - normalizeValue(currentData[index].temperature, minTemp, maxTemp)}
                     r="1"
                     fill="#2563EB"
                     stroke="#ffffff"
@@ -262,7 +262,7 @@ const ChartWidget: React.FC<ChartWidgetProps> = () => {
                   {/* Points humidité */}
                   <circle
                     cx={x}
-                    cy={100 - normalizeValue(currentData[index].humidity, minHumidity, maxHumidity)}
+                    cy={80 - normalizeValue(currentData[index].humidity, minHumidity, maxHumidity)}
                     r="1"
                     fill="#059669"
                     stroke="#ffffff"
@@ -276,7 +276,7 @@ const ChartWidget: React.FC<ChartWidgetProps> = () => {
                   {/* Points activité */}
                   <circle
                     cx={x}
-                    cy={100 - normalizeValue(currentData[index].activity, 0, maxActivity)}
+                    cy={80 - normalizeValue(currentData[index].activity, 0, maxActivity)}
                     r="1"
                     fill="#7C3AED"
                     stroke="#ffffff"
